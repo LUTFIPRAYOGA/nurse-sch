@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Peroses Penjadwalan | PSO BASED DIGITAL SCHEDULING</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {% load static %}
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="{% static 'adminlte/plugins/fontawesome-free/css/all.min.css' %}">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Tempusdominus Bbootstrap 4 -->
+  <link rel="stylesheet" href="{% static 'adminlte/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css' %}">
+  <!-- iCheck -->
+  <link rel="stylesheet" href="{% static 'adminlte/plugins/icheck-bootstrap/icheck-bootstrap.min.css' %}">
+  <!-- JQVMap -->
+  <link rel="stylesheet" href="{% static 'adminlte/plugins/jqvmap/jqvmap.min.css' %}">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{% static 'adminlte/dist/css/adminlte.css' %}"/>
+  <!-- overlayScrollbars -->
+  <link rel="stylesheet" href="{% static 'adminlte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css' %}">
+  <!-- Daterange picker -->
+  <link rel="stylesheet" href="{% static 'adminlte/plugins/daterangepicker/daterangepicker.css' %}">
+  <!-- summernote -->
+  <link rel="stylesheet" href="{% static 'adminlte/plugins/summernote/summernote-bs4.css' %}">
+  <!-- Google Font: Source Sans Pro -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+  <!-- Navbar -->
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
+      </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="http://localhost:8000/demohah/home" class="nav-link">Home</a>
+      </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="#" class="nav-link">Contact</a>
+      </li>
+    </ul>
+  </nav>
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="http://localhost:8000/demohah/home" class="brand-link">
+
+      <img src="{% static 'adminlte/dist/img/logo-rsud-bintan.jpg' %}"/
+           alt="Logo"
+           class="brand-image img-circle elevation-3"
+           style="opacity: .8">
+           <br>
+      <span class="brand-text font-weight-light">PENJADWALAN PERAWAT</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+
+          <li class="nav-item has-treeview menu-open">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fas fa-home"></i>
+              <p>
+                Beranda
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="http://localhost:8000/demohah/demoshow" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Daftar Ruangan</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="http://localhost:8000/demohah/editdemo" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Sunting Data Perawat</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-cog"></i>
+              <p>
+                Proses Penjadwalan
+              </p>
+            </a>
+          </li>
+
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>
+
+  <div class="content-wrapper">
+
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="mb-2 text-dark">Penjadwalan Perawat Berbasis Digital</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-12">
+            <a href="http://localhost:8000/demohah/demoshow" class="btn btn-primary mb-2 float-left">Back</a>
+            <a href="http://localhost:8000/continue" class="btn btn-success mb-2 float-right">Continue +100 Iteration</a>
+            <a href="http://localhost:8000/start" class="btn btn-default mb-2 mr-4 float-right">Restart</a>
+
+            <table class="table table-striped table-bordered table-sm">
+              <thead class="thead-dark">
+                <tr>
+                    <th>Perawat</th>
+                    {% for i in days %}
+                    <th>{{ i|add:1 }}</th>
+                    {% endfor %}
+                </tr>
+              </thead>
+              <tbody>
+              {% for i, nurse in schedules %}
+                <tr>
+                    <td>{{ nurse.nama_perawat }}</td>
+                    {% for day in nurse.shift %}
+                    <td>{{ day }}</td>
+                    {% endfor %}
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+              <div class="col-md-6 float-left">
+                  <p>
+                      Fitness : <b>{{ fitness }}</b><br>
+                      Iteration : <b>{{ last_iter }}</b>
+                  </p>
+              </div>
+              <a href="http://localhost:8000/print" class="btn btn-success mb-2 float-right">Print to PDF</a>
+              <a href="http://localhost:8000/grafik" class="btn btn-default mb-2 mr-4 float-right">View Graphic</a>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+
+
+<br>
+<br>
+</div>
+
+  <footer class="main-footer">
+    <strong><a>Universitas Maritim Raja Ali Haji Teknik Informatika</a>.</strong>
+    Lutfi Prayoga
+    <div class="float-right d-none d-sm-inline-block">
+      <b>Version</b> 1.0
+    </div>
+  </footer>
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery -->
+<script src="{% static 'adminlte/plugins/jquery/jquery.min.js' %}"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="{% static 'adminlte/plugins/jquery-ui/jquery-ui.min.js' %}"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+  $.widget.bridge('uibutton', $.ui.button)
+</script>
+<!-- Bootstrap 4 -->
+<script src="{% static 'adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<!-- ChartJS -->
+<script src="{% static 'adminlte/plugins/chart.js/Chart.min.js' %}"></script>
+<!-- Sparkline -->
+<script src="{% static 'adminlte/plugins/sparklines/sparkline.js' %}"></script>
+<!-- JQVMap -->
+<script src="{% static 'adminlte/plugins/jqvmap/jquery.vmap.min.js' %}"></script>
+<script src="{% static 'adminlte/plugins/jqvmap/maps/jquery.vmap.usa.js' %}"></script>
+<!-- jQuery Knob Chart -->
+<script src="{% static 'adminlte/plugins/jquery-knob/jquery.knob.min.js' %}"></script>
+<!-- daterangepicker -->
+<script src="{% static 'adminlte/plugins/moment/moment.min.js' %}"></script>
+<script src="{% static 'adminlte/plugins/daterangepicker/daterangepicker.js' %}"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="{% static 'adminlte/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js' %}"></script>
+<!-- Summernote -->
+<script src="{% static 'adminlte/plugins/summernote/summernote-bs4.min.js' %}"></script>
+<!-- overlayScrollbars -->
+<script src="{% static 'adminlte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js' %}"></script>
+<!-- AdminLTE App -->
+<script src="{% static 'adminlte/dist/js/adminlte.js' %}"></script>
+</body>
+</html>
